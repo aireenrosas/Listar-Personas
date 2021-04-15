@@ -6,8 +6,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: '#121212',
+    background: '#121212',        
   },
+  title: {
+    fontWeight: '600',
+  }
 }));
 
 function Header() {
@@ -16,7 +19,7 @@ function Header() {
     <div>
       <AppBar position="static">
         <Toolbar variant="dense" className={classes.root}>          
-          <Typography variant="h6" color="inherit">
+          <Typography className={classes.title} variant="h6" color="inherit">
               Ravn Star Wars Registry
           </Typography>
         </Toolbar>

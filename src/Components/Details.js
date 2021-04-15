@@ -8,59 +8,70 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.paper,
+        marginTop: '2%',
+        marginLeft: '10%',
+        marginRight: '10%',
+        paddingTop: '0px',
     },
     titulo: {
-      fontSize: "17pt",
-      color: "rgba(0,0,0,1)"
+        fontSize: "17pt",
+        color: "#333333",
+        padding: '(0,0,0,0)'
     },
     contenido: {
-      fontFamily: "Low Emphasis",
-      fontSize: "17pt",
-      color: "#828282"
-    }
+        fontSize: "17pt",
+        color: "#828282",
+        fontWeight: '700',
+        padding: '(0,0,0,0)'
+    },
+   
 }));
 
 function Details({information}){
     const classes = useStyles();
-
-    console.log('holaaaaa',information);
+    console.log(information);
 
     return (
         <React.Fragment>
             <List className={classes.root} key={information.id}>
                 <ListItem>
-                    <ListItemText> <h2 className={classes.titulo}>General Information</h2> </ListItemText>                                       
+                    <h2 className={classes.titulo}>General Information</h2>                                        
                 </ListItem>
                 <ListItem divider>
-                    <ListItemText> <h2 className={classes.contenido}>Eye Color</h2> </ListItemText>
+                    <h2 className={classes.contenido}>Eye Color</h2> 
                     <ListItemSecondaryAction>
-                        <h2 className={classes.contenido}>{information.eyeColor}</h2>
+                        <h4 className={classes.contenido}>{information.eyeColor}</h4>
                     </ListItemSecondaryAction>                   
                 </ListItem>
                 <ListItem divider>
-                    <ListItemText> <h2 className={classes.contenido}>Hair Color</h2> </ListItemText>
+                    <h2 className={classes.contenido}>Hair Color</h2> 
                     <ListItemSecondaryAction>
-                        <h2 className={classes.contenido}>{information.hairColor}</h2>
+                        <h4 className={classes.contenido}>{information.hairColor}</h4>
                     </ListItemSecondaryAction>
                 </ListItem>
                 <ListItem divider>
-                    <ListItemText> <h2 className={classes.contenido}>Skin Color</h2> </ListItemText>
+                    <h2 className={classes.contenido}>Skin Color</h2> 
                     <ListItemSecondaryAction>
-                        <h2 className={classes.contenido}>{information.skinColor}</h2>
+                        <h4 className={classes.contenido}>{information.skinColor}</h4>
                     </ListItemSecondaryAction>
                 </ListItem>
                 <ListItem divider>
-                    <ListItemText> <h2 className={classes.contenido}>Birth Year</h2> </ListItemText>
+                    <h2 className={classes.contenido}>Birth Year</h2> 
                     <ListItemSecondaryAction>
-                        <h2 className={classes.contenido}>{information.birthYear}</h2>
+                        <h4 className={classes.contenido}>{information.birthYear}</h4>
                     </ListItemSecondaryAction>
                 </ListItem>
+                <br/>
+                <br/>
                 <ListItem>
-                    <ListItemText> <h2 className={classes.titulo}>Vehicles</h2> </ListItemText>                                                         
+                    <h2 className={classes.titulo}>Vehicles</h2>                                                          
                 </ListItem>
-               
+                {information.vehicleConnection.vehicles.map( v =>{
+                    return  <ListItem divider>
+                                <h4 className={classes.contenido}>{v.name}</h4>                                
+                            </ListItem>
+                })}
             </List>   
         </React.Fragment>      
 );  

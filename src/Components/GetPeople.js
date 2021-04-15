@@ -9,12 +9,22 @@ import React, { useEffect, useState } from 'react';
 import {Details} from './Details';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { Update } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
-function sendId(information){
-    console.log(information);
-    
-}
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.background.paper,
+    },  
+    title:{
+        fontSize: '20px',
+        fontWeight: '750',
+    },
+    loadding: {
+        fontWeight: '600',
+    }
+}));
 
 function GetAllPeople() {
     const { loading, error, data , fetchMore} = useQuery(GET_ALL_PEOPLE,{
@@ -25,15 +35,12 @@ function GetAllPeople() {
         },
     });
     const [ person, setPerson] = useState ();
-   
+    const classes = useStyles();
     
     const onclickFunction = (e) => {
         setPerson(e);
     }
-     if(data){
-         console.log(data);
-     }
-
+     
     const onLoading = () => {
         fetchMore({
             variables:{
@@ -54,7 +61,11 @@ function GetAllPeople() {
     }
 
 
-    if (loading) return 'Loading';
+    if (loading) return (
+        <ListItem>
+            <RotateLeftIcon/><ListItemText primary="Loading" />
+        </ListItem>);
+
     if (error || !data) return `Error! ${error.message}`;
 
     return  <div>
@@ -64,7 +75,7 @@ function GetAllPeople() {
                             {data.allPeople.people.map(p=>{
                             return  <List>
                                         <ListItem button divider key={p.id} onClick={()=>onclickFunction(p)}>
-                                            <ListItemText
+                                            <ListItemText classes={{primary:classes.title}}
                                                 primary={p.name}
                                                 secondary={p.species? p.species.name+' from '+p.homeworld.name :'Human from '+p.homeworld.name}
                                             />                                                                  
@@ -81,7 +92,6 @@ function GetAllPeople() {
                     </Grid>
                 </Grid>                 
             </div>   
-  }
-
+    }
 
 export {GetAllPeople};
