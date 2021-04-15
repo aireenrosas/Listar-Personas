@@ -22,7 +22,12 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '750',
     },
     loadding: {
-        fontWeight: '600',
+        fontSize: '15px',
+        color: "#828282",
+    },
+    fail: {
+        fontSize: '15px',
+        color: "#EC5757",
     }
 }));
 
@@ -61,30 +66,57 @@ function GetAllPeople() {
     }
 
 
-    if (loading) return (
-        <ListItem>
-            <RotateLeftIcon/><ListItemText primary="Loading" />
-        </ListItem>);
+    if (loading) 
+    {
+        return (
+            <Grid container>
+                <Grid item xs={3} style={{paddingLeft:'7%'}}>
+                    <Box borderRight={1}>
+                        <ListItem classes={classes.loadding}>
+                            <RotateLeftIcon/>
+                            <ListItemText classes={{primary:classes.title}} 
+                                primary="Loading" />
+                        </ListItem>
+                    </Box>
+                </Grid>
+            </Grid>
+        );
+    }
 
-    if (error || !data) return `Error! ${error.message}`;
+    if (error || !data) 
+    {
+        return (
+            <Grid container>
+                <Grid item xs={3} style={{paddingLeft:'7%'}}>
+                    <Box borderRight={1}>
+                        <ListItem classes={classes.fail}>
+                            <RotateLeftIcon/>
+                            <ListItemText classes={{primary:classes.title}} 
+                                primary="Failed to Load Data" />
+                        </ListItem>
+                    </Box>
+                </Grid>
+            </Grid>
+        );
+    }
 
     return  <div>
                 <Grid container>
                     <Grid item xs={3}>
                         <Box borderRight={1}> 
-                            {data.allPeople.people.map(p=>{
-                            return  <List>
-                                        <ListItem button divider key={p.id} onClick={()=>onclickFunction(p)}>
-                                            <ListItemText classes={{primary:classes.title}}
-                                                primary={p.name}
-                                                secondary={p.species? p.species.name+' from '+p.homeworld.name :'Human from '+p.homeworld.name}
-                                            />                                                                  
-                                            <IconButton> 
-                                                <ArrowForwardIosIcon /> 
-                                            </IconButton>
-                                        </ListItem>
-                                    </List>                                                                          
-                            }, onLoading())}  
+                            {data.allPeople.people.map((p)=>(
+                                <List>
+                                    <ListItem button divider key={p.id} onClick={()=>onclickFunction(p)}>
+                                        <ListItemText classes={{primary:classes.title}}
+                                            primary={p.name}
+                                            secondary={p.species? p.species.name+' from '+p.homeworld.name :'Human from '+p.homeworld.name}
+                                        />                                                                  
+                                        <IconButton> 
+                                            <ArrowForwardIosIcon /> 
+                                        </IconButton>
+                                    </ListItem>
+                                </List>                                                                          
+                            ), onLoading())}  
                         </Box>         
                     </Grid> 
                     <Grid item xs={9}>                 

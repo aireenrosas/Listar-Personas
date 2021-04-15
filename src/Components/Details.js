@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { makeStyles } from '@material-ui/core/styles';
-
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Details({information}){
     const classes = useStyles();
-    console.log(information);
 
     return (
         <React.Fragment>
@@ -67,14 +66,23 @@ function Details({information}){
                 <ListItem>
                     <h2 className={classes.titulo}>Vehicles</h2>                                                          
                 </ListItem>
-                {information.vehicleConnection.vehicles.map( v =>{
-                    return  <ListItem divider>
-                                <h4 className={classes.contenido}>{v.name}</h4>                                
-                            </ListItem>
-                })}
+                {information.vehicleConnection.vehicles.map( (v) =>(
+                    <ListItem divider>
+                        <h4 className={classes.contenido}>{v.name}</h4>                                
+                    </ListItem>
+                ))}
             </List>   
         </React.Fragment>      
 );  
 }
  
+Details.propTypes = {
+    information: PropTypes.shape({
+        eyeColor: PropTypes.string,
+        hairColor: PropTypes.string,
+        skincolor: PropTypes.string,
+        birthYear: PropTypes.string,
+    })
+}
+
 export {Details};
